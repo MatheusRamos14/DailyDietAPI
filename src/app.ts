@@ -1,12 +1,12 @@
 import fastify from 'fastify';
-import { knex } from './database';
+import cookie from '@fastify/cookie';
+
+import { UsersRoute } from './routes/users.route';
 
 const app = fastify();
 
-app.get('/users', async () => {
-  const users = knex('users').select();
+app.register(cookie);
 
-  return users;
-});
+app.register(UsersRoute, { prefix: 'users' });
 
 export { app };
